@@ -1,0 +1,46 @@
+{% extends 'comunes/base.html'%}
+{% block content %}
+{{super()}}
+<div class="container">
+    <h1 id="titlcon"><b>LISTADO DE PRODUCTOS</b></h1>
+    <br/>
+    <table class="table table-condensed" class="table table-bordered">
+       <thead>
+       <a href="/registrarProducto" class="btn btn-primary">Registrar nuevo producto</a>
+           <tr>
+            <th>IMAGEN</th>
+            <th>ID PRODUCTO</th>
+            <th>ID CATEGORIA</th>
+            <th>NOMBRE</th>
+            <th>DESCRIPCIÓN</th>
+            <th>PRECIO</th>
+            <th>EXISTENCIA</th>
+            <th>COLOR</th>
+            <th>MARCA</th>
+            <th>COSTO DE ENVIO</th>
+            <th>ESTATUS</th>
+            <th>MODIFICAR</th>
+            <th>ELIMINAR</th>
+        </tr>
+        </thead>
+        {% for pro in productos %}
+            <tr>
+                <td>{{pro.foto}}</td>
+                <td>{{pro.IDPRODUCTO}}</td>
+                <td>{{pro.IDCATEGORIA}}</td>
+                <td>{{pro.NOMBRE}}</td>
+                <td>{{pro.DECRIPCION}}</td>
+                <td>{{pro.PRECIO}}</td>
+                <td>{{pro.EXISTENCIA}}</td>
+                <td>{{pro.COLOR}}</td>
+                <td>{{pro.MARCA}}</td>
+                <td>{{pro.COSTOENVIO}}</td>
+                <td>{{pro.ESTATUS}}</td>
+                <td><a href="/ModificarProducto"><span class="glyphicon glyphicon-edit"></span></a></td>
+                <td><a href="/EliminarProducto"><span class="glyphicon glyphicon-trash"></span></a></td>
+            </tr>
+        {% endfor %}
+
+    </table>
+    </div>
+{%endblock content%}
