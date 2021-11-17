@@ -73,6 +73,11 @@ def guardarDatosProducto():
     flash('Producto editado con éxito!!')
     return render_template('Productos/editarProducto.html',producto=p)
 
+@app.route('/productos/imagen/<int:id>')
+def consultarImagenProducto(id):
+    p = Productos()
+    return p.consultaIndividual(id).foto
+
 if __name__ == '__main__':
     db.init_app(app)
     app.run(debug=True)
