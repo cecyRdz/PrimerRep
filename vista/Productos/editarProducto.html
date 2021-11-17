@@ -1,63 +1,95 @@
 {% extends 'comunes/base.html'%}
 {% block content %}
 {{super()}}
-    <form action="/recopilarDatosEditados" method="post" id="formul2">
+    <form action="/guardarDatosProducto" method="post" id="formul2" enctype="multipart/form-data">
        <h1><b>MODIFICACIÓN DE DATOS DE UN PRODUCTO</b></h1>
-       <div class="mb-3">
+       <div class="form-group">
             <label for="foto">Fotografía: </label>
-            <input type="file" name="foto" id="foto" value="Selecciona la imagen" accept="image/png, .jpeg, .jpg, image/gif">
+           <input type="file" name="foto" id="foto">
+           <a data-toggle="modal" data-target="imagen" id="imgn"><span class="glyphicon glyphicon-eye-open">Visualizar</span></a>
         </div>
         <br/>
         <div class="mb-3 mt-3">
             <label for="idProducto">idProducto: </label>
-            <input type="number" name="idProducto" id="idProducto" value="1" disabled required>
+            <input type="number" name="idProducto" id="idProducto" value="{{producto.IDPRODUCTO}}" readonly>
         </div>
         <br/>
         <div class="mb-3 mt-3">
             <label for="idCategoria">idCategoria: </label>
-            <input type="number" name="idCategoria" id="idCategoria" value="1" required>
+            <input type="number" name="idCategoria" id="idCategoria" value="{{producto.IDCATEGORIA}}" required>
         </div>
         <br/>
         <div class="mb-3 mt-3">
             <label for="nombre">Nombre: </label>
-            <input type="text" name="nombre" id="nombre" value="Laptop HP Stream CB-118DS" maxlength="50" size="50" required>
+            <input type="text" name="nombre" id="nombre" value="{{producto.NOMBRE}}" maxlength="50" size="50" required>
         </div>
         <br/>
         <div class="mb-3 mt-3">
             <label for="descripcion">Descripción: </label>
-            <input type="text" name="descripcion" id="descripcion" value="Pantalla: 14'', RAM: 64 GB, Procesador: Intel Celeron N4020, S.O.:Windows 10, 1 TB SSD" maxlength="100" size="70" required>
+            <input type="text" name="descripcion" id="descripcion" value="{{producto.DECRIPCION}}" maxlength="100" size="70" required>
         </div>
         <br/>
         <div class="mb-3 mt-3">
             <label for="precioVenta">Precio: </label>
-            <input type="number" name="precioVenta" id="precioVenta" value="15900.00" required>
+            <input type="number" name="precioVenta" id="precioVenta" value="{{producto.PRECIO}}" required>
         </div>
         <br/>
         <div class="mb-3 mt-3">
             <label for="existencia">Existencia: </label>
-            <input type="number" name="existencia" id="existencia" value="10" required>
+            <input type="number" name="existencia" id="existencia" value="{{producto.EXISTENCIA}}" required>
         </div>
         <br/>
         <div class="mb-3 mt-3">
             <label for="color">Color: </label>
-            <input type="text" name="color" id="color" value="Rosa" maxlength="25" required>
+            <input type="text" name="color" id="color" value="{{producto.COLOR}}" maxlength="25" required>
         </div>
         <br/>
         <div class="mb-3 mt-3">
             <label for="marca">Marca: </label>
-            <input type="text" name="marca" id="marca" value="HP" maxlength="50" required>
+            <input type="text" name="marca" id="marca" value="{{producto.MARCA}}" maxlength="50" required>
         </div>
         <br/>
         <div class="mb-3 mt-3">
             <label for="costoEnvio">Costo de envío: </label>
-            <input type="number" name="costoEnvio" id="costoEnvio" value="500.00" required>
+            <input type="number" name="costoEnvio" id="costoEnvio" value="{{producto.COSTOENVIO}}" required>
         </div>
         <br/>
         <div class="mb-3 mt-3">
-            <label for="estatus">Estatus:</label>
-            <input type="checkbox" name="estatus" id="estatus" checked>
+            {% if producto.ESTATUS==True%}
+                <label>Estatus:</label>
+                <input type="checkbox" name="estatus" checked value="True">
+            {% else %}
+                <label>Estatus:</label>
+                <input type="checkbox" name="estatus" value="True">
+            {% endif %}
         </div>
         <br/>
-        <button type="submit"  class="btn btn-primary">Guardar</button>
+        <button type="submit" class="btn btn-info">
+            <span class="glypicon glyphicon-floppy-disk">Guardar</span>
+        </button>
+        <a href="/consultarProductos" class="btn btn-danger">Regresar</a>
+        {% if get_flashed_messages() %}
+        {% for m in get_flashed_messages()%}
+        <div class="alert alert-success alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>{{m}}</strong>
+        </div>
+        {% endfor %}
+        {% endif %}
     </form>
+    <!--MODAL PARA MOSTRAR LA IMAGEN-->
+<!--
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">X;</button>
+            <h4 class="modal-title">Imagen de {{producto.NOMBRE}}</h4>
+        </div>
+        <div class="modal-body">
+            <img src="/productos/foto/{{producto.IDPRODUCTO}}">
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        </div>
+    </div>
+-->
 {%endblock content%}

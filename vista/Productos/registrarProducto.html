@@ -1,16 +1,11 @@
 {% extends 'comunes/base.html'%}
 {% block content %}
 {{super()}}
-    <form action="/registrarNuevoProducto" method="post" id="formul">
+    <form action="/registrarNuevoProducto" method="post" id="formul" enctype="multipart/form-data">
        <h1><b>REGISTRO DE UN NUEVO PRODUCTO</b></h1>
          <div class="mb-3 mt-3">
             <label for="foto">Fotografía: </label>
             <input type="file" name="foto" id="foto" value="Selecciona la imagen" accept="image/png, .jpeg, .jpg, image/gif">
-         </div>
-         <br/>
-         <div class="mb-3 mt-3">
-            <label for="idProducto">ID del Producto:</label>
-            <input type="number" name="idProducto" id="idProducto" value="6" disabled required>
          </div>
          <br/>
          <div class="mb-3 mt-3">
@@ -53,11 +48,19 @@
             <input type="number" name="costoEnvio" id="costoEnvio" placeholder="Costo de envio del Producto" required>
          </div>
          <br/>
-         <div class="mb-3 mt-3">
-            <label for="estatus">Estatus:</label>
-            <input type="checkbox" name="estatus" id="estatus" checked>
-         </div>
-         <br/>
+        <!--<div class="mb-3 mt-3">
+           <label for="estatus">Estatus:</label>
+           <input type="checkbox" name="estatus" id="estatus" checked>
+        </div>
+        <br/>-->
          <button type="submit" class="btn btn-primary">Registrar</button>
+        {% if get_flashed_messages() %}
+        {% for m in get_flashed_messages()%}
+        <div class="alert alert-success alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>{{m}}</strong>
+        </div>
+        {% endfor %}
+        {% endif %}
     </form>
 {%endblock content%}
